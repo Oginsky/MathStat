@@ -1,0 +1,8 @@
+# Ignore everything in this directory
+
+/include
+/debug
+/release
+
+# Except this file
+!.gitignore

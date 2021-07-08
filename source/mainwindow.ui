@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1920</width>
+    <height>1080</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QCustomPlot" name="plot" native="true">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>0</y>
+      <width>1001</width>
+      <height>611</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QFrame" name="leftbar">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>351</width>
+      <height>981</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>351</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QFrame#leftbar {
+	background-color: #3b3b3b;
+	-qt-background-role: palette(shadow);
+}</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QGroupBox" name="samplegroup">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>341</width>
+       <height>661</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Calibri Light</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">qproperty-alignment: AlignCenter;
+</string>
+     </property>
+     <property name="title">
+      <string>Выборки</string>
+     </property>
+     <widget class="QTableWidget" name="sample_table">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>321</width>
+        <height>621</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border: none</string>
+      </property>
+      <property name="rowCount">
+       <number>0</number>
+      </property>
+      <property name="columnCount">
+       <number>0</number>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="charactgroup">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>660</y>
+       <width>341</width>
+       <height>301</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Calibri Light</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">qproperty-alignment: AlignCenter;
+</string>
+     </property>
+     <property name="title">
+      <string>Характеристики</string>
+     </property>
+     <widget class="QTableWidget" name="charact_table">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>321</width>
+        <height>271</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border: none</string>
+      </property>
+      <property name="rowCount">
+       <number>0</number>
+      </property>
+      <property name="columnCount">
+       <number>0</number>
+      </property>
+      <attribute name="horizontalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderCascadingSectionResizes">
+       <bool>true</bool>
+      </attribute>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="rightbar">
+    <property name="geometry">
+     <rect>
+      <x>1420</x>
+      <y>0</y>
+      <width>511</width>
+      <height>1011</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLineEdit" name="criterial_name_line">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>461</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="add_criterial_btn">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>50</y>
+       <width>191</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Добавить</string>
+     </property>
+    </widget>
+    <widget class="QScrollArea" name="scrollArea_rightbar">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>90</y>
+       <width>491</width>
+       <height>901</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>489</width>
+        <height>899</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="Line" name="line">
+    <property name="geometry">
+     <rect>
+      <x>1400</x>
+      <y>10</y>
+      <width>20</width>
+      <height>981</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="Line" name="line_2">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>610</y>
+      <width>1001</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1920</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>Выборки</string>
+    </property>
+    <addaction name="add_sample"/>
+    <addaction name="generate_sample"/>
+    <addaction name="create_sample"/>
+   </widget>
+   <widget class="QMenu" name="graphics_menu">
+    <property name="title">
+     <string>Графики</string>
+    </property>
+    <addaction name="add_graphics"/>
+   </widget>
+   <widget class="QMenu" name="menu_4">
+    <property name="title">
+     <string>Математическая Статистика</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menu_5">
+    <property name="title">
+     <string>Непараметрическая статистика</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menu_6">
+    <property name="title">
+     <string>Сценарии</string>
+    </property>
+    <widget class="QMenu" name="menu_7">
+     <property name="title">
+      <string>Знаковый критерий сдвига Уилкоксона</string>
+     </property>
+    </widget>
+    <addaction name="menu_7"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+   <addaction name="graphics_menu"/>
+   <addaction name="menu_4"/>
+   <addaction name="menu_5"/>
+   <addaction name="menu_6"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <action name="add_sample">
+   <property name="text">
+    <string>Добавить</string>
+   </property>
+  </action>
+  <action name="generate_sample">
+   <property name="text">
+    <string>Сгенерировать</string>
+   </property>
+  </action>
+  <action name="create_sample">
+   <property name="text">
+    <string>Создать</string>
+   </property>
+  </action>
+  <action name="add_graphics">
+   <property name="text">
+    <string>Добавить</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot/qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
