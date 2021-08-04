@@ -98,6 +98,7 @@ void CriterialConfig::on_acept_btn_clicked() {
 
     // Имя критерия для определения функции
     sendingData["name"] = _criterial->name;
+    sendingData["id"] = _criterial->id;
 
     // Собираем выборки
     for(size_t i = 0; i < _criterial->samples.size(); ++i) {

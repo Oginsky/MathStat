@@ -30,6 +30,8 @@ SOURCES += \
     Stats/empirical.cpp \
     Stats/sample.cpp \
     Stats/shiftproblem.cpp \
+    Stats/twosamplescaleproblem.cpp \
+    Stats/twosampleshiftproblem.cpp \
     Styles/stylesheets.cpp \
     ToolWidgets/collapsibleSection.cpp \
     ToolWidgets/criterialconfig.cpp \
@@ -53,6 +55,8 @@ HEADERS += \
     Stats/empirical.h \
     Stats/sample.h \
     Stats/shiftproblem.h \
+    Stats/twosamplescaleproblem.h \
+    Stats/twosampleshiftproblem.h \
     Styles/colors.h \
     Styles/stylesheets.h \
     ToolWidgets/collapsibleSection.h \

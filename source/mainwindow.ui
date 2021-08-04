@@ -19,7 +19,7 @@
      <rect>
       <x>380</x>
       <y>0</y>
-      <width>1001</width>
+      <width>971</width>
       <height>611</height>
      </rect>
     </property>
@@ -151,9 +151,9 @@
    <widget class="QFrame" name="rightbar">
     <property name="geometry">
      <rect>
-      <x>1420</x>
+      <x>1380</x>
       <y>0</y>
-      <width>511</width>
+      <width>551</width>
       <height>1011</height>
      </rect>
     </property>
@@ -174,7 +174,7 @@
       <rect>
        <x>20</x>
        <y>10</y>
-       <width>461</width>
+       <width>501</width>
        <height>31</height>
       </rect>
      </property>
@@ -197,7 +197,7 @@
       <rect>
        <x>0</x>
        <y>90</y>
-       <width>491</width>
+       <width>521</width>
        <height>901</height>
       </rect>
      </property>
@@ -212,7 +212,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>489</width>
+        <width>519</width>
         <height>899</height>
        </rect>
       </property>
@@ -222,7 +222,7 @@
    <widget class="Line" name="line">
     <property name="geometry">
      <rect>
-      <x>1400</x>
+      <x>1360</x>
       <y>10</y>
       <width>20</width>
       <height>981</height>
@@ -237,7 +237,7 @@
      <rect>
       <x>380</x>
       <y>610</y>
-      <width>1001</width>
+      <width>971</width>
       <height>31</height>
      </rect>
     </property>

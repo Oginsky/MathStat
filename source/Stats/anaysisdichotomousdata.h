@@ -1,20 +1,20 @@
 #ifndef DIXOTOMIXANALYZ_H
 #define DIXOTOMIXANALYZ_H
 
-#include <QStringList>
 #include <QSet>
 
-#include "commonfunc.h"
-
 class Sample;
+class OutputData;
+enum class FLAG;
 
 
+namespace Dichotomical {
 
-namespace dixanalyz {
+    void binomialCriterial(const Sample& data, double p0, double alpha, const QSet<FLAG>& flags, OutputData& result);
 
-    void binimCritThetaEqual(size_t B, size_t n, double p0, double alpha, QStringList& result);
+    void esvaluationProbability(const Sample& data, double alpha, const QSet<QString>& orders, const QSet<FLAG>& flags, OutputData& result);
 
-    void simpletest(const Sample& sample, OutputData& result);
+    void compareProbability(const Sample& data1, const Sample& data2, double alpha, const QSet<QString>& orders, const QSet<FLAG>& flags, OutputData& result);
 
 }
 

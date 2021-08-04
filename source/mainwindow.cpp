@@ -16,9 +16,6 @@
 #include "Graphics/barsgraph.h"
 #include "Graphics/empericdistribfunction.h"
 
-#include "Stats/empirical.h"
-#include "Stats/shiftproblem.h"
-
 #include "qdebug.h"
 
 #include "RandLib.h"

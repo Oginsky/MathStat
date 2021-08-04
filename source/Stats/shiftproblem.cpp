@@ -6,8 +6,8 @@
 #include <QVector>
 #include <QMap>
 
-//#include "RandLib.h"
 #include "commonfunc.h"
+
 
 void averagesWilsha(const QVector<double>& zi, QVector<double>& wi) {
     size_t n = zi.size(), m = (n*(n+1)) / 2;

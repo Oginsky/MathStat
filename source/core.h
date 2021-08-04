@@ -17,7 +17,8 @@ namespace Core {
     enum class DistributionType { Arcsine = 0, Bernoulli, Beta, Bimomial, Cantor, Chi, Exponential, FisherF,
                                   Gamma, Geometric, Laplace, Normal, StudentT, Zeta};
 
-    enum class CriterialSection { ShiftProblem = 0, SignRank = 1, DichotomicData = 2 };
+    enum class CriterialSection { ShiftProblem = 0, SignRank, DichotomicData, TwoSampleShiftProblem,
+                                  TwoSampleScaleProblem };
 
 
     struct ParametersInfo {
@@ -59,6 +60,11 @@ namespace Core {
 //       }
     };
     struct CriterialInfo {
+     private:
+        //static size_t TOTAL_ID;
+
+     public:
+        size_t id;
         CriterialSection section_type;
         QString name;
         QVector<ParametersInfo> parameters;
@@ -75,7 +81,12 @@ namespace Core {
             this->samples = sample;
             this->aproximations = aproximation;
             this-> corrects = corrects;
+
+            //id = ++TOTAL_ID;
         }
+
+        private:
+            CriterialInfo& operator=(const CriterialInfo& left) { }
     };
 }
 
@@ -129,7 +140,7 @@ namespace Core::Criterial {
      * Тип, имя
      * Имена выборок
      * Входные параметры
-     * Апроксимации
+     * Аппроксимации
      * Добавки
     */
     /* Затем зарегистрировать в criterials */
@@ -149,6 +160,7 @@ namespace Core::Criterial {
         {"Выборка до", "Выборка после"},
         {{"Уровень доверия", 0.0, 1.0}},
     };
+
     const CriterialInfo SignRank = {
         CriterialSection::SignRank, "Гипотезы о сдвиге",
         {"Выборка до", "Выборка после"},
@@ -166,6 +178,75 @@ namespace Core::Criterial {
         { {"Аппроксимация нормальным распределением", FLAG::NormalAproximate} }
     };
 
+    const CriterialInfo BinomialCriterial = {
+        CriterialSection::DichotomicData, "Биномиальный критерий",
+        {"Результат схемы Бернулли"},
+        { {"Проверяемое значение", 0.0, 1.0}, {"Уровень значимости", 0.0, 1.0}},
+        { {"Аппроксимация нормальным распределением", FLAG::NormalAproximate} },
+        { {"Доп. характеристики: мощность критерия, вероятность ошибки", FLAG::StatisticsInfo} }
+    };
+    const CriterialInfo EsvaluationProbability = {
+        CriterialSection::DichotomicData, "Оценка вероятности успеха",
+        {"Результат схемы Бернулли"},
+        { {"Уровень значимости", 0.0, 1.0} },
+        { {"Приближение Вальда (для доверительного интервала)", FLAG::NormalAproximate } },
+        { {Order::HodgesLehmanEstimate}, {"Доверительный интервал", FLAG::ConfidenceInterval},
+          {Order::CopperPearsonInterval}, {Order::WaldApproximation}, {Order::WilsonInterval} }
+    };
+    const CriterialInfo CompareProbability = {
+        CriterialSection::DichotomicData, "Сравнение вероятностей",
+        { "Исход №1", "Исход №2" },
+        { {"Уровень значимости", 0.0, 1.0} },
+        {  },
+        { {"Доверительный интервал", FLAG::ConfidenceInterval}, {Order::AsymptoticDifferenceInterval},
+          {Order::ProbabilityRatioEstimate}, {Order::ProbabilityRatioConfidenceInterval} }
+    };
+
+    const CriterialInfo MedianTestMuda = {
+        CriterialSection::TwoSampleShiftProblem, "Медианный критерий Муда",
+        { "Выборка №1", "Выборка №2" },
+        { {"Уровень значимости", 0.0, 1.0} },
+        {  },
+        { {"Ранговая форма", FLAG::Ranks}, {"Поправка Йейтса на непрерывность", FLAG::ChiSquareCorrection} }
+    };
+    const CriterialInfo WilcoxonSummRank = {
+        CriterialSection::TwoSampleShiftProblem, "Критерий ранговых сумм Уилкоксона",
+        { "Выборка №1", "Выборка №2" },
+        { {"Уровень значимости", 0.0, 1.0} },
+        { {"Апроксимация Имана", FLAG::ImansAproximate} },
+        { {"Точечная оценка", FLAG::PointEstimate}, {"Доверительный интервал", FLAG::ConfidenceInterval} }
+    };
+    const CriterialInfo MannWhitneyTest = {
+        CriterialSection::TwoSampleShiftProblem, "Критерий Манна-Уитни",
+        { "Выборка №1", "Выборка №2" },
+        { {"Уровень значимости", 0.0, 1.0} },
+        {  },
+        { {"Коррекция на непрерывность", FLAG::ContinuityCorrection}, {"Размер эффекта", FLAG::EffectSize},
+          {Order::KliffDelta}, {Order::DominatedProbability}, {Order::DominatedProbability}}
+    };
+    const CriterialInfo FlynnerPolycelloTest = {
+        CriterialSection::TwoSampleShiftProblem, "Критерий Флиннера-Поличелло",
+        { "Выборка №1", "Выборка №2" },
+        { {"Уровень значимости", 0.0, 1.0} }
+    };
+
+    const CriterialInfo AnsariBradleyTest = {
+        CriterialSection::TwoSampleScaleProblem, "Критерий Ансари-Брэдли",
+        { "Выборка №1", "Выборка №2" },
+        { {"Уровень значимости", 0.0, 1.0} }
+    };
+    const CriterialInfo SigelTukeyTest = {
+        CriterialSection::TwoSampleScaleProblem, "Критерий Сиджела-Тьюки",
+        { "Выборка №1", "Выборка №2" },
+        { {"Уровень значимости", 0.0, 1.0} },
+        {  },
+        { {"Коррекция на непрерывность", FLAG::ContinuityCorrection} }
+    };
+    const CriterialInfo MosesTest = {
+        CriterialSection::TwoSampleScaleProblem, "Критерий Мозеса",
+        { "Выборка №1", "Выборка №2" },
+        { {"Уровень значимости", 0.0, 1.0} },
+    };
 
     /***************************************/
 
@@ -173,17 +254,23 @@ namespace Core::Criterial {
     const QVector<const CriterialInfo*> criterials = {
         &WilcoxonSignRank, &WilcoxonSignRankEstimation, &WilcoxonSignRankInterval,
         &SignRank, &SignRankEstimation, &SignRangInterval,
+        &BinomialCriterial, &EsvaluationProbability, &CompareProbability,
+        &MedianTestMuda, &WilcoxonSummRank, &MannWhitneyTest, &FlynnerPolycelloTest,
+        &AnsariBradleyTest, &SigelTukeyTest, &MosesTest
     };
 
     const QMap<CriterialSection, QString> CriterialSectionNameByType = {
-        {CriterialSection::ShiftProblem,    "Знаковый критерий сдвига"},
-        {CriterialSection::SignRank,        "Критерий знаков"},
-        {CriterialSection::DichotomicData,  "Дихотомические данные"},
+        {CriterialSection::ShiftProblem,            "Знаковый критерий сдвига"},
+        {CriterialSection::SignRank,                "Критерий знаков"},
+        {CriterialSection::DichotomicData,          "Дихотомические данные"},
+        {CriterialSection::TwoSampleShiftProblem,   "Двухвыборочная задача о сдвиге"},
+        {CriterialSection::TwoSampleScaleProblem,   "Двухвыборочная задача о масштабе"}
     };
 
 
     static QStringList fillCriterialsList() {
         QStringList names;
+        names.reserve(criterials.size());
         for(const auto& crit: criterials) {
             names << CriterialSectionNameByType[crit->section_type] + " : " + crit->name;
         }
@@ -202,6 +289,5 @@ namespace Core::Criterial {
 
 
 }
-
 
 #endif // CORE_H

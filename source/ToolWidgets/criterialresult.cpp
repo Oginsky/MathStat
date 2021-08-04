@@ -44,11 +44,15 @@ CriterialResult::CriterialResult(const OutputData& output, QWidget *parent) : QW
     }
 
     QFormLayout* values_layout = new QFormLayout(this);
-
     for(QString name_value : output.values.keys())
         values_layout->addRow(name_value + ":", new QLabel(output.values[name_value], this));
 
-    main_layout->addLayout(values_layout);
+    QFormLayout* extra_layout = new QFormLayout(this);
 
+    for(QString name_value : output.extra.keys())
+        extra_layout->addRow(name_value + ":", new QLabel(output.extra[name_value], this));
+
+    main_layout->addLayout(values_layout);
+    main_layout->addLayout(extra_layout);
     setLayout(main_layout);
 }

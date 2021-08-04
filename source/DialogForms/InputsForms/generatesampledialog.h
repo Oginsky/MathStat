@@ -20,7 +20,6 @@ public:
     ~GenerateSampleDialog();
 
 private slots:
-    void on_pushButton_clicked();
 
     void on_distr_box_activated(int index);
 

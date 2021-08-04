@@ -20,7 +20,7 @@ QToolTip {
 
 QLabel {
     color: white;
-    font-size: 10pt;
+    font-size: 9pt;
 }
 
 
@@ -81,7 +81,7 @@ QComboBox {
     padding: 1px 18px 1px 3px;
     min-width: 6em;
     color: white;
-    font-size: 10pt;
+    font-size: 9pt;
 }
 
 QComboBox::down-arrow {

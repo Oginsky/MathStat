@@ -2,7 +2,8 @@
 
 #include <QApplication>
 
-#include "Styles/tablestyle.h"
+#include <QFile>
+
 
 int main(int argc, char *argv[])
 {

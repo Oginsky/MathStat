@@ -51,7 +51,11 @@ public:
 
     double& operator[](size_t index);
     double operator[](size_t index) const;
-    const Sample operator+(const Sample& right);
+    const Sample operator+(const Sample& right) const;
+
+    QVector<double>::const_iterator cbegin() const;
+    QVector<double>::const_iterator cend() const;
+
 
     void resize(size_t size);
     void reserve(size_t size);

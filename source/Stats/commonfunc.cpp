@@ -3,9 +3,7 @@
 #include "RandLib.h"
 
 #include <QMap>
-
-#include "sample.h"
-
+#include <unordered_set>
 
 unsigned qHash(FLAG flag) {return (unsigned)flag; }
 
@@ -24,9 +22,21 @@ double CriticalValue::ChiSquared::operator()(double degree, double p) const {
     return ChiSquaredRand(degree).Quantile(p);
 }
 
-double CriticalValue::Binomial::operator()(size_t size, double p) const {
-    return BinomialRand(size, p).Quantile(p);
+double CriticalValue::Binomial::operator()(size_t size, double p, double p0) const {
+    return BinomialRand(size, p0).Quantile(p);
 }
+
+double CriticalValue::Beta::operator()(double shape1, double shape2, double p) const {
+    return BetaRand(shape1, shape2).Quantile(p);
+}
+
+QString str_const::interval(double left, double right) {
+    return "(" + to_str(left) + ", " + to_str(right) + ")";
+}
+
+
+double square(double x) { return x*x; }
+
 
 
 size_t binomialLowerAlpha(size_t n, double alpha, double p) {
@@ -67,7 +77,7 @@ inline void sort(QVector<double>& data) { std::sort(data.begin(), data.end()); }
 void ranking(const Sample& data, QMap<double, double>& rank, unsigned startRank, bool average) {
     size_t size = data.size();
 
-    for (size_t i = 0; i < size_t(data.size()); ++i) {
+    for (size_t i = 0; i < size; ++i) {
         double val = data[i];
         if (rank.find(val) == rank.end()) rank.insert(val, 1);
         else rank[val]++;
@@ -79,7 +89,7 @@ void ranking(const Sample& data, QMap<double, double>& rank, unsigned startRank,
         return rank / count;
     };
 
-    size_t r = 1;
+    size_t r = startRank;
     for (auto it = rank.begin(); it != rank.end(); it++) {
         it.value() = average_rank(r, it.value());
     }
@@ -100,4 +110,20 @@ void uniq_group(const QVector<double>& data, QMap<double, size_t>& groups) {
     }
 }
 
+bool has_same_value(const Sample& data1, const Sample& data2) {
+    std::unordered_set<double> values;
+    for(const auto& val: data1.data()) values.insert(val);
+    return std::any_of(data2.cbegin(), data2.cbegin(), [&values](double val) {
+        return values.find(val) == values.end();
+    });
+    //return std::find_first_of(data1.cbegin(), data1.cend(), data2.cbegin(), data2.cend()) != data1.cend();
+}
 
+double disp_with_corrects(size_t n, size_t m, const QMap<double, size_t>& groups) {
+    double summ(0.0);
+    for(auto val: groups.values())
+        summ += val*(square(val) - 1.0);
+    double temp = summ / ( (n + m)*(n + m - 1.0) );
+
+    return ( n*m/12.0 ) * (n + m + 1.0 - temp);
+}

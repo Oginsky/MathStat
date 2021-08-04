@@ -20,7 +20,12 @@ private:
     TaskManager();
 
     static void handleShiftProblem(QMap<QString, QVariant>& configs, const QList<Sample>& samples, OutputData& result);
+
     static void handleSignRank(QMap<QString, QVariant>& configs, const QList<Sample>& samples, OutputData& result);
+
+    static void handleTwoSampleShiftProblem(QMap<QString, QVariant>& configs, const QList<Sample>& samples, OutputData& result);
+
+    static void handleTwoSampleScaleProblem(QMap<QString, QVariant>& configs, const QList<Sample>& samples, OutputData& result);
 
     static void handleDichotomicData(QMap<QString, QVariant>& configs, const QList<Sample>& samples, OutputData& result);
 

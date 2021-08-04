@@ -1,13 +1,13 @@
 #ifndef SHIFTPROBLEM_H
 #define SHIFTPROBLEM_H
 
-#include <QStringList>
-
-#include "sample.h"
 #include <QSet>
 
+
+class Sample;
 struct OutputData;
 enum class FLAG;
+
 
 namespace ShiftProblem {
 

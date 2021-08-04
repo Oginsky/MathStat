@@ -75,10 +75,19 @@ double Sample::operator[](size_t index) const {
     return sampleData[index];
 }
 
-const Sample Sample::operator+(const Sample& right) {
+const Sample Sample::operator+(const Sample& right) const {
     Sample result;
     result.sampleData = this->sampleData + right.sampleData;
     result._size = this->_size + right._size;
+
+    return  result;
+}
+
+QVector<double>::const_iterator Sample::cbegin() const {
+    return sampleData.cbegin();
+}
+QVector<double>::const_iterator Sample::cend() const {
+    return sampleData.cend();
 }
 
 

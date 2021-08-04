@@ -29,12 +29,6 @@ GenerateSampleDialog::~GenerateSampleDialog()
     delete ui;
 }
 
-void GenerateSampleDialog::on_pushButton_clicked()
-{
-
-
-}
-
 void GenerateSampleDialog::on_distr_box_activated(int index)
 {
     Core::DistributionInfo distr = *Core::Distribution::distributions[index];
