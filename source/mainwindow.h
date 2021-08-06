@@ -44,6 +44,7 @@ private slots:
     void add_graphic_object(QList<QString> plotObjects, QString sample_ame);
 
     /* Обработка критериев */
+    void add_criterial_config();
     void on_add_criterial_btn_clicked();        // Добавляем форму настроек критериев
     void handleCiterialConfig(const Core::CriterialInfo* criterial, QMap<QString, QVariant> configs); // Обрабатываем введенные насройки критерия
     void on_create_sample_triggered();
@@ -69,6 +70,7 @@ private:
     /* Начальные настройки */
     void createCharacteristicsTable();
     void setElementConfig();
+    void createStatisticsMenu();
 
     /* Изменение внешнего вида приложения */
     void setElementStyle();

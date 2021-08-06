@@ -42,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Первоначальные настройки
     setElementConfig();             // Настройки виджетов
     createCharacteristicsTable();   // Заполнение строк таблицы характеристик данных
+    createStatisticsMenu();         // Создание меню для выбора непараметрических критериев
 
     // Внешний вид приложения
     this->setElementStyle();        // Настройки стиля отдельных элементов
@@ -162,20 +163,11 @@ void MainWindow::add_graphic_object(QList<QString> plotObjects, QString sample_n
 
 
 /*
- *  Виджеты критериев
+ *  Слоты критериев
 */
-void MainWindow::on_add_criterial_btn_clicked() {
-    QString criterial_name = ui->criterial_name_line->text();
-    if(criterial_name.isEmpty()) {
-        ui->criterial_name_line->setText("Укажите название критерия!");
-        return;
-    }
-
-    // Проверка корректного навзвания
-    if(!Core::Criterial::CriterialsNames.contains(criterial_name)) {
-        ui->criterial_name_line->setText("Введите название существующего критерия!");
-        return;
-    }
+void MainWindow::add_criterial_config() {
+    QAction* action = qobject_cast<QAction*>(sender());
+    QString criterial_name = action->data().toString();
 
     // Размещаем форму критерия
     // Получить тип критерия, создать форму, и установить форме критерий
@@ -191,6 +183,25 @@ void MainWindow::on_add_criterial_btn_clicked() {
     // Добавляем связи (обновление выборок и обработка введенных настроек)
     connect(this, SIGNAL(new_samples(QStringList)), critConfig, SLOT(updateData(QStringList)));
     connect(critConfig, SIGNAL(sendConfigs(const Core::CriterialInfo*, QMap<QString, QVariant>)), this, SLOT(handleCiterialConfig(const Core::CriterialInfo*, QMap<QString, QVariant>)));
+}
+void MainWindow::on_add_criterial_btn_clicked() {
+    QString criterial_name = ui->criterial_name_line->text();
+    if(criterial_name.isEmpty()) {
+        ui->criterial_name_line->setText("Укажите название критерия!");
+        return;
+    }
+
+    // Проверка корректного названия
+    if(!Core::Criterial::CriterialsNames.contains(criterial_name)) {
+        ui->criterial_name_line->setText("Введите название существующего критерия!");
+        return;
+    }
+
+    // Вызываем добавление критерия через сигнал
+    QAction action;
+    action.setData(criterial_name);
+    connect(&action, &QAction::triggered, this, &MainWindow::add_criterial_config);
+    action.trigger();
 }
 void MainWindow::handleCiterialConfig(const Core::CriterialInfo* criterial, QMap<QString, QVariant> configs) {
     // Данные отправляем в taskmanager, которыей их распределяет по функциям Stats
@@ -258,6 +269,34 @@ void MainWindow::setElementConfig() {
     // Убираем статус бар
     ui->statusbar->setEnabled(false);
     ui->statusbar->setVisible(false);
+}
+void MainWindow::createStatisticsMenu() {
+    using namespace Core::Criterial;
+
+    auto makeMenu = [this](Core::CriterialSection section) {
+        QStringList criterials = getCriterialsBySection(section);
+        QMenu* subMenu = new QMenu(CriterialSectionNameByType[section]);
+        for(auto& name: criterials) {
+            QAction* addCriterial = new QAction(name);
+            addCriterial->setData(QVariant(criterialName(section, name)));
+            connect(addCriterial, &QAction::triggered, this, &MainWindow::add_criterial_config);
+            subMenu->addAction(addCriterial);
+        }
+
+        return subMenu;
+    };
+
+    QMenu* mainMenu = ui->nonparam_stats_menu;
+    mainMenu->addMenu(makeMenu(Core::CriterialSection::DichotomicData));
+
+    QMenu* shiftParamMenu = new QMenu("Параметр сдвига");
+    shiftParamMenu->addMenu(makeMenu(Core::CriterialSection::ShiftProblem));
+    shiftParamMenu->addMenu(makeMenu(Core::CriterialSection::SignRank));
+    mainMenu->addMenu(shiftParamMenu);
+
+    mainMenu->addMenu(makeMenu(Core::CriterialSection::TwoSampleShiftProblem));
+    mainMenu->addMenu(makeMenu(Core::CriterialSection::TwoSampleScaleProblem));
+
 }
 
 

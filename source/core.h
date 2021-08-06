@@ -27,20 +27,12 @@ namespace Core {
         double min = std::numeric_limits<decltype(min)>::min();
         double max = std::numeric_limits<decltype(max)>::max();
 
-        ParametersInfo(QString n, bool r = true) :
-            name(n), is_real(r) {
-
-        }
+        ParametersInfo(QString n, bool r = true);
         ParametersInfo(QString n, decltype(min) _min,
-                            decltype(max) _max = std::numeric_limits<decltype(max)>::max(), bool r = true) :
-            name(n), is_real(r), min(_min), max(_max) {
-
-        }
-        ParametersInfo(QString n, decltype(min) _min, bool r) :
-            name(n), is_real(r), min(_min) {
-
-        }
+                            decltype(max) _max = std::numeric_limits<decltype(max)>::max(), bool r = true);
+        ParametersInfo(QString n, decltype(min) _min, bool r);
     };
+
     struct DistributionInfo {
         DistributionType type;
         QString name;
@@ -49,16 +41,9 @@ namespace Core {
 
         // Класс распределения
 
-        DistributionInfo(DistributionType t, QString n, QVector<ParametersInfo>&& p) :
-            type(t), name(n), parameters(p) {
-            parameters_count = parameters.size();
-        }
-//       DistributionInfo(DistributionType t, QString n, DistrParametersInfo&& p) :
-//           type(t), name(n) {
-//           parameters.push_back(p);
-//           parameters_count = parameters.size();
-//       }
+        DistributionInfo(DistributionType t, QString n, QVector<ParametersInfo>&& p);
     };
+
     struct CriterialInfo {
      private:
         //static size_t TOTAL_ID;
@@ -74,19 +59,12 @@ namespace Core {
 
 
         CriterialInfo(CriterialSection type, QString&& name, QVector<QString>&& sample = {},
-                      QVector<ParametersInfo>&& parameters = {}, QVector<Pair>&& aproximation = {}, QVector<Pair>&& corrects = {}) {
-            section_type = type;
-            this->name = name;
-            this->parameters = parameters;
-            this->samples = sample;
-            this->aproximations = aproximation;
-            this-> corrects = corrects;
+                      QVector<ParametersInfo>&& parameters = {}, QVector<Pair>&& aproximation = {}, QVector<Pair>&& corrects = {});
 
-            //id = ++TOTAL_ID;
-        }
+        QString fullName();
 
         private:
-            CriterialInfo& operator=(const CriterialInfo& left) { }
+            CriterialInfo& operator=(const CriterialInfo& left) = delete;
     };
 }
 
@@ -279,13 +257,11 @@ namespace Core::Criterial {
 
     const QStringList CriterialsNames = fillCriterialsList();
 
-    static QString criterialName(CriterialSection type, QString name) {
-        return CriterialSectionNameByType[type] + " : " + name;
-    }
+    QString criterialName(CriterialSection type, QString name);
 
-    static const CriterialInfo* getCriterialByName(const QString& name) {
-        return criterials[CriterialsNames.indexOf(name)];
-    }
+    const CriterialInfo* getCriterialByName(const QString& name);
+
+    QStringList getCriterialsBySection(CriterialSection type);
 
 
 }
