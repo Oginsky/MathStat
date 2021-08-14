@@ -6,6 +6,10 @@ EmpericDistribFunction::EmpericDistribFunction() {
 
 }
 
+EmpericDistribFunction::EmpericDistribFunction(QString name) {
+    _name = name;
+}
+
 EmpericDistribFunction::EmpericDistribFunction(QCPAxis* xAxis, QCPAxis* yAxis) :
     PlotObject(xAxis, yAxis) {
 
@@ -13,6 +17,12 @@ EmpericDistribFunction::EmpericDistribFunction(QCPAxis* xAxis, QCPAxis* yAxis) :
 
     // Настройка внешнего вида графика
     empericdistrfunc->setPen(main_color.getColor());
+
+    plottable = empericdistrfunc;
+
+}
+
+EmpericDistribFunction::~EmpericDistribFunction() {
 
 }
 
@@ -24,6 +34,9 @@ void EmpericDistribFunction::setPlot(QCustomPlot* plot) {
 
     // Настройка внешнего вида графика
     empericdistrfunc->setPen(main_color.getColor());
+    empericdistrfunc->setName(_name);
+
+    plottable = empericdistrfunc;
 }
 
 void EmpericDistribFunction::build(const Sample& sample) {
@@ -57,5 +70,5 @@ void EmpericDistribFunction::build(const Sample& sample) {
 }
 
 QString EmpericDistribFunction::type_name() const {
-    return "Emperical Distribution Function";
+    return "Функция распределения";
 }

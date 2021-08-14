@@ -39,7 +39,7 @@ QString InputSampleDialog::getSeparator(const QString& filepath) {
 
 
 void InputSampleDialog::on_choosefile_btn_clicked() {
-    filepath = QFileDialog::getOpenFileName(0, "Выберите данные ", "C:\\Users\\Ogins\\Documents\\QtProject\\MathStats\\Data", "");
+    filepath = QFileDialog::getOpenFileName(0, "Выберите данные ", "", "");
     if(filepath.isEmpty()) {
         ui->showfilename_line->setText("Файл не выбран");
         return;

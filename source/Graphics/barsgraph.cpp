@@ -11,10 +11,20 @@ BarsGraph::BarsGraph(QCPAxis* xAxis, QCPAxis* yAxis) :
     barsgraph->setPen(main_color.getColor());
     barsgraph->setBrush(QBrush(Qt::BrushStyle::NoBrush));
 
+    plottable = barsgraph;
 
     //barsgraph->setBrush(QColor(10, 140, 70, 160));
 }
+
 BarsGraph::BarsGraph() {
+
+}
+
+BarsGraph::BarsGraph(QString name) {
+    _name = name;
+}
+
+BarsGraph::~BarsGraph() {
 
 }
 
@@ -26,6 +36,9 @@ void BarsGraph::setPlot(QCustomPlot* plot) {
 
     barsgraph->setPen(main_color.getColor());
     barsgraph->setBrush(QBrush(Qt::BrushStyle::NoBrush));
+    barsgraph->setName(_name);
+
+    plottable = barsgraph;
 }
 
 void BarsGraph::build(const Sample& sample) {
@@ -42,7 +55,7 @@ void BarsGraph::build(const Sample& sample) {
 
     auto getIntervalNumber = [&bounds](double value) {
       int prev = 0;
-      while(value > bounds[prev] && prev < bounds.size()) prev++;
+      while(prev < bounds.size() && value > bounds[prev]) prev++;
       return (prev == 0) ? prev : prev-1;
     };
 
@@ -73,7 +86,7 @@ void BarsGraph::build(const Sample& sample) {
 QCPBars *BarsGraph::getBarsGraph() { return barsgraph; }
 
 QString BarsGraph::type_name() const {
-    return "Bars";
+    return "Гистограмма";
 }
 
 bool BarsGraph::operator==(const BarsGraph &right) { return this->_id == right._id; }

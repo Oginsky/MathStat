@@ -263,7 +263,7 @@
      <string>Файл</string>
     </property>
    </widget>
-   <widget class="QMenu" name="menu_2">
+   <widget class="QMenu" name="sample_menu">
     <property name="title">
      <string>Выборки</string>
     </property>
@@ -275,14 +275,23 @@
     <property name="title">
      <string>Графики</string>
     </property>
+    <widget class="QMenu" name="menu_3">
+     <property name="title">
+      <string>Вид</string>
+     </property>
+     <addaction name="graphic_title_change"/>
+     <addaction name="graphic_legend_change"/>
+    </widget>
     <addaction name="add_graphics"/>
+    <addaction name="separator"/>
+    <addaction name="menu_3"/>
    </widget>
    <widget class="QMenu" name="menu_4">
     <property name="title">
      <string>Математическая Статистика</string>
     </property>
    </widget>
-   <widget class="QMenu" name="menu_5">
+   <widget class="QMenu" name="nonparam_stats_menu">
     <property name="title">
      <string>Непараметрическая статистика</string>
     </property>
@@ -291,18 +300,12 @@
     <property name="title">
      <string>Сценарии</string>
     </property>
-    <widget class="QMenu" name="menu_7">
-     <property name="title">
-      <string>Знаковый критерий сдвига Уилкоксона</string>
-     </property>
-    </widget>
-    <addaction name="menu_7"/>
    </widget>
    <addaction name="menu"/>
-   <addaction name="menu_2"/>
+   <addaction name="sample_menu"/>
    <addaction name="graphics_menu"/>
    <addaction name="menu_4"/>
-   <addaction name="menu_5"/>
+   <addaction name="nonparam_stats_menu"/>
    <addaction name="menu_6"/>
   </widget>
   <widget class="QStatusBar" name="statusbar">
@@ -328,6 +331,22 @@
   <action name="add_graphics">
    <property name="text">
     <string>Добавить</string>
+   </property>
+  </action>
+  <action name="graphic_title_change">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Заголовок</string>
+   </property>
+  </action>
+  <action name="graphic_legend_change">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Легенда</string>
    </property>
   </action>
  </widget>

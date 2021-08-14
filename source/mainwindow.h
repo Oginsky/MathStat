@@ -41,7 +41,7 @@ private slots:
     void on_generate_sample_triggered();
 
     /* Добавление и редактирование графиков */
-    void add_graphic_object(QList<QString> plotObjects, QString sample_ame);
+    void add_graphic_object(QList<QString> plotObjects, QString sample_name, QString graphics_name);
 
     /* Обработка критериев */
     void add_criterial_config();
@@ -52,12 +52,13 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
     /* Для хранения выборок */
     QList<Sample> samplesList;
     QStringList samplesName;
 
     /* Для хранения и управления графиками */
-    GraphicsManager* graphicManager;
+    GraphicsManager* graphicsManager;
     QList<PlotObject*> graphicsList;
 
     /* Отображение форм критериев и сценариев */

@@ -37,7 +37,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::show_characteristic, &MainWindow::show_samples_characteristics);
 
     // Инициализация компонентов
-    graphicManager = new GraphicsManager(ui->plot, &graphicsList, this);
+    graphicsManager = new GraphicsManager(ui->plot, &graphicsList, this);
+    graphicsManager->setTriggeredAction(ui->graphic_title_change, true);
+    graphicsManager->setTriggeredAction(ui->graphic_legend_change);
 
     // Первоначальные настройки
     setElementConfig();             // Настройки виджетов
@@ -47,6 +49,12 @@ MainWindow::MainWindow(QWidget *parent)
     // Внешний вид приложения
     this->setElementStyle();        // Настройки стиля отдельных элементов
     this->setPlotStyle();           // Установка внешнего вида холста для графиков
+
+    // Коннекты
+    connect(ui->graphic_legend_change, &QAction::triggered, graphicsManager, &GraphicsManager::changeLegendVisible);
+    connect(ui->graphic_title_change, &QAction::triggered, graphicsManager, &GraphicsManager::changeTitleVisible);
+    connect(graphicsManager, SIGNAL(add_graphic()), ui->add_graphics, SIGNAL(triggered()));
+
 
     //ui->scenarios_layout->setAlignment(Qt::Alignment::enum_type::AlignTop);
 
@@ -146,16 +154,18 @@ void MainWindow::show_samples_characteristics() {
 */
 void MainWindow::on_add_graphics_triggered() {
     AddGraphDialog* agd = new AddGraphDialog(samplesName, this);
-    connect(agd, SIGNAL(send_graph(QList<QString>, QString)), this, SLOT(add_graphic_object(QList<QString>, QString)));
+    connect(agd, SIGNAL(send_graph(QList<QString>, QString, QString)), this, SLOT(add_graphic_object(QList<QString>, QString, QString)));
     agd->show();
 }
-void MainWindow::add_graphic_object(QList<QString> plotObjects, QString sample_name) {
+void MainWindow::add_graphic_object(QList<QString> plotObjects, QString sample_name, QString graphics_name) {
     for(QString graphic: plotObjects) {
         size_t sample_index = samplesName.indexOf(sample_name);
+
         PlotObject* newGraphic;
-        if(graphic == "BarsGraph") newGraphic = new BarsGraph();
-        else if(graphic == "EmpericDistribFunction") newGraphic = new EmpericDistribFunction();
-        graphicManager->registredNewGraphic(newGraphic, samplesList[sample_index], sample_name);
+        if(graphic == "BarsGraph") newGraphic = new BarsGraph(graphics_name);
+        else if(graphic == "EmpericDistribFunction") newGraphic = new EmpericDistribFunction(graphics_name);
+
+        graphicsManager->registredNewGraphic(newGraphic, samplesList[sample_index], sample_name);
     }
 
     ui->plot->replot();

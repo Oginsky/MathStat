@@ -7,7 +7,9 @@
 class EmpericDistribFunction : public PlotObject {
 public:
     EmpericDistribFunction();
+    EmpericDistribFunction(QString name);
     EmpericDistribFunction(QCPAxis* xAxis, QCPAxis* yAxis);
+    ~EmpericDistribFunction();
 
     void setPlot(QCustomPlot* plot) override;
     void build(const Sample& sample) override;

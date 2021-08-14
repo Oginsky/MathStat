@@ -20,14 +20,16 @@ public:
 
     QVector<double>& getXAxisData();
     QVector<double>& getYAxisData();
+    QCPAbstractPlottable* getPlottable() const;
+
 
     virtual void build(const Sample& sample) = 0;
-
     virtual void setPlot(QCustomPlot* plot);
-    void setName(QString name);
-
-    QString name() const;
     virtual QString type_name() const = 0;
+
+
+    void setName(QString name);
+    QString name() const;
     size_t id() const;
 
 private:
@@ -35,10 +37,13 @@ private:
 
 protected:
     QCPAxis* xAxis, *yAxis;
+    QCPAbstractPlottable* plottable;
+
     QString _name;
     QString _type_name;
-    QVector<double> xAxisData, yAxisData;
     size_t _id;
+
+    QVector<double> xAxisData, yAxisData;
 };
 
 #endif // PLOTOBJECT_H

@@ -16,7 +16,7 @@ class AddGraphDialog : public QDialog
     Q_OBJECT
 
 signals:
-    void send_graph(QList<QString>, QString);
+    void send_graph(QList<QString>, QString, QString);
 
 public:
     explicit AddGraphDialog(const QStringList& listname, QWidget *parent = nullptr);

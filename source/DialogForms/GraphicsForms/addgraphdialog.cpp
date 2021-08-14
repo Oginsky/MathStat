@@ -23,5 +23,6 @@ void AddGraphDialog::on_buttonBox_accepted() {
     if(ui->bars->isChecked()) plotObjects->push_back("BarsGraph");
     if(ui->empfunc->isChecked()) plotObjects->push_back("EmpericDistribFunction");
 
-    emit send_graph(*plotObjects, ui->samplesNameBox->currentText());
+
+    emit send_graph(*plotObjects, ui->samplesNameBox->currentText(), ui->name_line->text());
 }

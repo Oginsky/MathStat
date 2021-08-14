@@ -28,10 +28,10 @@
     </font>
    </property>
    <property name="text">
-    <string>Выберите выборку и необходимые графики</string>
+    <string>Выберите данные и необходимые графики</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -43,6 +43,20 @@
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="nam_label">
+          <property name="text">
+           <string>Название графика</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="name_line"/>
+        </item>
+       </layout>
+      </item>
       <item>
        <widget class="QComboBox" name="samplesNameBox"/>
       </item>

@@ -36,6 +36,7 @@ SOURCES += \
     ToolWidgets/collapsibleSection.cpp \
     ToolWidgets/criterialconfig.cpp \
     ToolWidgets/criterialresult.cpp \
+    core.cpp \
     main.cpp \
     mainwindow.cpp \
     qcustomplot/qcustomplot.cpp \

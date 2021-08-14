@@ -8,6 +8,8 @@ class BarsGraph : public PlotObject {
 public:
    BarsGraph(QCPAxis* xAxis, QCPAxis* yAxis);
    BarsGraph();
+   BarsGraph(QString name);
+   ~BarsGraph();
 
    QCPBars* getBarsGraph();
 
