@@ -75,7 +75,6 @@ GraphicsManager::~GraphicsManager() {
 
 void GraphicsManager::registredNewGraphic(PlotObject* graphic, const Sample& sample, QString name) {
     graphic->setPlot(plot);
-    graphic->setName(graphic->type_name() + " - " + name);
     graphic->build(sample);
     graphics->push_back(graphic);
 
@@ -83,6 +82,8 @@ void GraphicsManager::registredNewGraphic(PlotObject* graphic, const Sample& sam
     connect(graphic->getPlottable(), SIGNAL(selectionChanged(bool)), this, SLOT(itemClick(bool)));
 
     plot->legend->addElement(plot->legend->rowCount(), 0, new QCPPlottableLegendItem(plot->legend, graphic->getPlottable()));
+
+    plot->replot();
 }
 
 

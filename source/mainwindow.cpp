@@ -56,13 +56,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(graphicsManager, SIGNAL(add_graphic()), ui->add_graphics, SIGNAL(triggered()));
 
 
-    //ui->scenarios_layout->setAlignment(Qt::Alignment::enum_type::AlignTop);
-
-   //BinomialRand binRand(8, 0.4);
-   //qDebug() << binRand.F(3); // <=
-   //qDebug() << binRand.S(3); // >
-   //qDebug() << binRand.P(3); // =
-
     // Проверка виджета настройки критериев
     //CollapsibleSection* testconfig = new CollapsibleSection("Конфигурация", 100, this);
     //CriterialConfig* tmp = new CriterialConfig(&Core::Criterial::WilcoxonSignRank, samplesName, this);
@@ -87,6 +80,7 @@ void MainWindow::on_add_sample_triggered() {
 }
 void MainWindow::on_generate_sample_triggered() {
     GenerateSampleDialog* gsd = new GenerateSampleDialog(this);
+    connect(gsd, SIGNAL(send_samples(QList<Sample>)), this, SLOT(add_samplesList(QList<Sample>)));
     gsd->show();
 }
 void MainWindow::on_create_sample_triggered() {
@@ -158,6 +152,8 @@ void MainWindow::on_add_graphics_triggered() {
     agd->show();
 }
 void MainWindow::add_graphic_object(QList<QString> plotObjects, QString sample_name, QString graphics_name) {
+    if(graphics_name.isEmpty()) graphics_name = sample_name;
+
     for(QString graphic: plotObjects) {
         size_t sample_index = samplesName.indexOf(sample_name);
 
@@ -167,8 +163,6 @@ void MainWindow::add_graphic_object(QList<QString> plotObjects, QString sample_n
 
         graphicsManager->registredNewGraphic(newGraphic, samplesList[sample_index], sample_name);
     }
-
-    ui->plot->replot();
 }
 
 
@@ -225,6 +219,9 @@ void MainWindow::handleCiterialConfig(const Core::CriterialInfo* criterial, QMap
     new_section->setContentLayout(*resultForm->layout());
 
     content_widget->layout()->addWidget(new_section);
+}
+void MainWindow::remove_criterial() {
+
 }
 
 

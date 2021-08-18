@@ -35,20 +35,22 @@ signals:
 
 private slots:
     /* Обработка добавления выборок */
-    void on_add_sample_triggered();                 // Вызов формы считывания выборок
     void add_samplesList(QList<Sample> samples);    // Регистрирует новые выборки и отправляет сигнал для обновления
-    void show_samples_characteristics();
-    void on_generate_sample_triggered();
+    void show_samples_characteristics();            // Выводит характеристика новых выборок
+    void on_add_sample_triggered();                 // Вызов формы считывания выборок
+    void on_create_sample_triggered();              // Вызов формы повторных выборок
+    void on_generate_sample_triggered();            // Вызов формы генерациии выборок
 
     /* Добавление и редактирование графиков */
     void add_graphic_object(QList<QString> plotObjects, QString sample_name, QString graphics_name);
+    void on_add_graphics_triggered();               // Вызов формы добавления графиков
 
     /* Обработка критериев */
     void add_criterial_config();
     void on_add_criterial_btn_clicked();        // Добавляем форму настроек критериев
     void handleCiterialConfig(const Core::CriterialInfo* criterial, QMap<QString, QVariant> configs); // Обрабатываем введенные насройки критерия
-    void on_create_sample_triggered();
-    void on_add_graphics_triggered();
+    void remove_criterial();                    // Ощичает раздел с критериями
+
 
 private:
     Ui::MainWindow *ui;
@@ -81,15 +83,12 @@ private:
 #endif // MAINWINDOW_H
 
 /* TODO-list:
- * Решить проблему наложения графиков
- * Генерация выборок
  * Удаление выборок (Не забыть очистить с графиков)
  * Удаление виджетов с критериями
  * Экспорт выборок (Форматы: txt, csv, json)
  * Копирование выборок и создание новых "налету" (Посмотреть QBuffer)
  * График: Сглаженная эмпирическая плотность распределения
  * График: Отображение данных на графике (группировка)
- * График: Контекстное меню для работы с графиками
  * Как-то связывать объекты (выборки с их графиками)
  * В TaskManager проверять удалось ли преобразовать в ожидаймый тип, иначе исключение (система исключений)
  * Система исключений?

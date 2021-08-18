@@ -5,7 +5,11 @@
 #include <QVector>
 #include <QStringList>
 
+class QVariant;
+class Sample;
+
 #include "commonstruct.h"
+
 
 namespace Core {
 
@@ -36,12 +40,14 @@ namespace Core {
     struct DistributionInfo {
         DistributionType type;
         QString name;
-        size_t parameters_count;
+        size_t _parameters_count;
         QVector<ParametersInfo> parameters;
 
         // Класс распределения
 
         DistributionInfo(DistributionType t, QString n, QVector<ParametersInfo>&& p);
+
+        size_t parameters_count() const;
     };
 
     struct CriterialInfo {
@@ -70,25 +76,24 @@ namespace Core {
 
 namespace Core::Distribution {
 
-    const DistributionInfo Arcsine  {DistributionType::Arcsine, "Распределение арксинуса", {{"a"}, {"b"}} };
-    const DistributionInfo Bernoulli{DistributionType::Bernoulli, "Распределение Бернулли", {{"Вероятность p", 0.0, 1.0}} };
-    const DistributionInfo Beta     {DistributionType::Beta, "Бета распределение", {} };
-    const DistributionInfo Bimomial {DistributionType::Bimomial, "Биномиальное распределение", {} };
-    const DistributionInfo Cantor   {DistributionType::Cantor, "Канторовское распределение", {{"Количество", 0, false}, {"Вероятность успеха", 0.0, 1.0}} };
-    const DistributionInfo Chi      {DistributionType::Chi, "Хи-Квадрат распределение", {{"Степени свободы", 0, false}} };
-    const DistributionInfo Exponential{DistributionType::Exponential, "Показательное распределение", {{"Лямда", 0, false}} };
-    const DistributionInfo FisherF  {DistributionType::FisherF, "Распределение Фишера", {{"Степени 1", 0, false}, {"Степени 2", 0, false}}};
-    const DistributionInfo Gamma    {DistributionType::Gamma, "Гамма распределение", {}};
-    const DistributionInfo Geometric{DistributionType::Geometric, "Геометрическое распределение", {{"Вероятность", 0.0, 1.0}} };
-    const DistributionInfo Laplace  {DistributionType::Laplace, "Распределение Лаппласа", {} };
-    const DistributionInfo Normal   {DistributionType::Normal, "Нормальное распределение", {{"Среднее"}, {"Дисперсия", 0.0}} };
-    const DistributionInfo StudentT {DistributionType::StudentT, "Распределение Стьюдента", {}};
-    const DistributionInfo Zeta     {DistributionType::Zeta, "Распределение Зета", {}};
+    const DistributionInfo Arcsine  {DistributionType::Arcsine,     "Распределение арксинуса",          {{"shape", 0.0, 1.0}, {"min"}, {"max"}} };
+    const DistributionInfo Bernoulli{DistributionType::Bernoulli,   "Распределение Бернулли",           {{"Вероятность p", 0.0, 1.0}} };
+    const DistributionInfo Beta     {DistributionType::Beta,        "Бета распределение",               {{"shape1"}, {"shape2"}} };
+    const DistributionInfo Bimomial {DistributionType::Bimomial,    "Биномиальное распределение",       {{"Повторений", 0, false}, {"Вероятность", 0.0, 1.0}} };
+    const DistributionInfo Chi      {DistributionType::Chi,         "Хи-Квадрат распределение",         {{"Степени свободы", 0, false}} };
+    const DistributionInfo Exponential{DistributionType::Exponential, "Показательное распределение",    {{"Лямда", 0, false}} };
+    const DistributionInfo FisherF  {DistributionType::FisherF,     "Распределение Фишера",             {{"Степени 1", 0, false}, {"Степени 2", 0, false}} };
+    const DistributionInfo Gamma    {DistributionType::Gamma,       "Гамма распределение",              {{"shape"}, {"rate"}} };
+    const DistributionInfo Geometric{DistributionType::Geometric,   "Геометрическое распределение",     {{"Вероятность", 0.0, 1.0}} };
+    const DistributionInfo Laplace  {DistributionType::Laplace,     "Распределение Лаппласа",           {{"Сдвиг"}, {"Масштаб", 0.0}} };
+    const DistributionInfo Normal   {DistributionType::Normal,      "Нормальное распределение",         {{"Среднее"}, {"Дисперсия", 0.0}} };
+    const DistributionInfo StudentT {DistributionType::StudentT,    "Распределение Стьюдента",          {{"Степени", 0.0}, {"Масштаб"}} };
+    const DistributionInfo Zeta     {DistributionType::Zeta,        "Распределение Зета",               {{"Степень"}} };
 
 
 
     static const QVector<const DistributionInfo*> distributions = {
-        &Arcsine, &Bernoulli, &Beta, &Bimomial, &Cantor, &Chi, &Exponential, &FisherF, &Gamma,
+        &Arcsine, &Bernoulli, &Beta, &Bimomial, &Chi, &Exponential, &FisherF, &Gamma,
         &Geometric, &Laplace, &Normal, &StudentT, &Zeta
     };
 
@@ -106,6 +111,11 @@ namespace Core::Distribution {
 
     static const QMap<QString, DistributionType> typeByName = fillTypeByName();
     static const QStringList names = fillNames();
+
+
+    void generateSample(const DistributionInfo* distrInfo, QVariant parameter, size_t size, Sample& sample);
+    void generateSample(const DistributionInfo* distrInfo, QVariant pr1, QVariant pr2, size_t size, Sample& sample);
+    void generateSample(const DistributionInfo* distrInfo, QVariant pr1, QVariant pr2, QVariant pr3, size_t size, Sample& sample);
 
 }
 

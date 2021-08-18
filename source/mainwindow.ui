@@ -219,7 +219,7 @@
      </widget>
     </widget>
    </widget>
-   <widget class="Line" name="line">
+   <widget class="Line" name="decore_line">
     <property name="geometry">
      <rect>
       <x>1360</x>
@@ -232,7 +232,7 @@
      <enum>Qt::Vertical</enum>
     </property>
    </widget>
-   <widget class="Line" name="line_2">
+   <widget class="Line" name="decore_line2">
     <property name="geometry">
      <rect>
       <x>380</x>
@@ -265,11 +265,12 @@
    </widget>
    <widget class="QMenu" name="sample_menu">
     <property name="title">
-     <string>Выборки</string>
+     <string>Данные</string>
     </property>
     <addaction name="add_sample"/>
-    <addaction name="generate_sample"/>
+    <addaction name="separator"/>
     <addaction name="create_sample"/>
+    <addaction name="generate_sample"/>
    </widget>
    <widget class="QMenu" name="graphics_menu">
     <property name="title">
@@ -286,7 +287,7 @@
     <addaction name="separator"/>
     <addaction name="menu_3"/>
    </widget>
-   <widget class="QMenu" name="menu_4">
+   <widget class="QMenu" name="math_stats_menu">
     <property name="title">
      <string>Математическая Статистика</string>
     </property>
@@ -304,7 +305,7 @@
    <addaction name="menu"/>
    <addaction name="sample_menu"/>
    <addaction name="graphics_menu"/>
-   <addaction name="menu_4"/>
+   <addaction name="math_stats_menu"/>
    <addaction name="nonparam_stats_menu"/>
    <addaction name="menu_6"/>
   </widget>
@@ -325,7 +326,7 @@
   </action>
   <action name="create_sample">
    <property name="text">
-    <string>Создать</string>
+    <string>Повторные выборки</string>
    </property>
   </action>
   <action name="add_graphics">

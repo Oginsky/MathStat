@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+#include "Stats/sample.h"
+
 class QLineEdit;
 class QLabel;
 class QHBoxLayout;
@@ -19,9 +21,13 @@ public:
     explicit GenerateSampleDialog(QWidget *parent = nullptr);
     ~GenerateSampleDialog();
 
+signals:
+    void send_samples(QList<Sample>);
+
 private slots:
 
     void on_distr_box_activated(int index);
+    void on_buttonBox_accepted();
 
 private:
     Ui::GenerateSampleDialog *ui;
