@@ -218,6 +218,38 @@
       </property>
      </widget>
     </widget>
+    <widget class="QToolButton" name="clear_criterial_btn">
+     <property name="geometry">
+      <rect>
+       <x>486</x>
+       <y>51</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QToolButton {
+		image: url(:/img/resources/img/btns/clear-usual.png);
+		size: 25px;
+		border: none;
+}
+
+::hover {
+		image: url(:/img/resources/img/btns/clear-hovered.png);
+		size: 25px;
+		border: none;
+}
+
+::pressed {
+		image: url(:/img/resources/img/btns/clear-pressed.png);
+		size: 25px;
+		border: none;
+}</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </widget>
    <widget class="Line" name="decore_line">
     <property name="geometry">

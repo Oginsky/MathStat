@@ -55,6 +55,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->graphic_title_change, &QAction::triggered, graphicsManager, &GraphicsManager::changeTitleVisible);
     connect(graphicsManager, SIGNAL(add_graphic()), ui->add_graphics, SIGNAL(triggered()));
 
+    connect(ui->clear_criterial_btn, SIGNAL(clicked()), this, SLOT(remove_criterial()));
+
 
     // Проверка виджета настройки критериев
     //CollapsibleSection* testconfig = new CollapsibleSection("Конфигурация", 100, this);
@@ -221,6 +223,16 @@ void MainWindow::handleCiterialConfig(const Core::CriterialInfo* criterial, QMap
     content_widget->layout()->addWidget(new_section);
 }
 void MainWindow::remove_criterial() {
+    QLayout* content_layout = content_widget->layout();
+    while(content_layout->count() > 0) {
+        QWidget* previousOpenInWidget = content_layout->itemAt(0)->widget();
+        delete content_layout->takeAt(0);
+        content_layout->removeWidget(previousOpenInWidget);
+        delete previousOpenInWidget;
+
+    }
+
+    criterialsList.clear();
 
 }
 
@@ -259,6 +271,7 @@ void MainWindow::setElementConfig() {
     criterialsNamesCompliter->setCaseSensitivity(Qt::CaseSensitivity::CaseInsensitive);
     //criterialsNamesCompliter->setCompletionMode(QCompleter::InlineCompletion);
     criterialsNamesCompliter->setCompletionMode(QCompleter::PopupCompletion);
+    criterialsNamesCompliter->setMaxVisibleItems(25);
     ui->criterial_name_line->setCompleter(criterialsNamesCompliter);
 
     // Добавление форм по нажатию Enter у поля для ввода критериев
@@ -276,6 +289,9 @@ void MainWindow::setElementConfig() {
     // Убираем статус бар
     ui->statusbar->setEnabled(false);
     ui->statusbar->setVisible(false);
+
+    // Подсказки при наведении
+    ui->clear_criterial_btn->setToolTip("Очистить критерии");
 }
 void MainWindow::createStatisticsMenu() {
     using namespace Core::Criterial;
